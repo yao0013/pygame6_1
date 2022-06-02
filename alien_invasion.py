@@ -21,9 +21,12 @@ def run_game():
     while True:
         gf.check_events(ai_setting, screen, ship, bullets)
         ship.update()
-        bullets.update()
+        gf.update_bullets(bullets)
         gf.update_screen(ai_setting, screen, ship, bullets)
 
 
 if __name__ == '__main__':
     run_game()
+
+# TODO 12-5 侧面射击：编写一个游戏，将一艘飞船放在屏幕左边，并允许玩家上下移动飞船。在玩家按空格键时，让飞船发射一颗在屏幕中向右穿
+#  行的子弹，并在子弹离开屏幕而消失后将其删除，即改成横版游戏！！！
