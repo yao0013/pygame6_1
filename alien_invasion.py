@@ -7,7 +7,6 @@ from setting import Setting
 from ship import Ship
 import game_functions as gf
 
-
 def run_game():
     pygame.init()
     ai_setting = Setting()
@@ -17,12 +16,14 @@ def run_game():
     pygame.display.set_caption("aline")
     ship = Ship(ai_setting, screen)
     bullets = Group()
+    aliens = Group()
+    gf.create_fleet(ai_setting, screen, ship, aliens)
 
     while True:
         gf.check_events(ai_setting, screen, ship, bullets)
         ship.update()
         gf.update_bullets(bullets)
-        gf.update_screen(ai_setting, screen, ship, bullets)
+        gf.update_screen(ai_setting, screen, ship, aliens, bullets)
 
 
 if __name__ == '__main__':
