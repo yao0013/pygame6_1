@@ -20,7 +20,7 @@ def run_game():
     pygame.display.set_caption("aline")
     play_button = Button(ai_setting, screen, "Start")
     stats = GameStats(ai_setting)
-    sb = Scoreboard()
+    sb = Scoreboard(ai_setting, screen, stats)
     ship = Ship(ai_setting, screen)
     bullets = Group()
     aliens = Group()
@@ -30,10 +30,10 @@ def run_game():
         gf.check_events(ai_setting, screen, stats, play_button, ship, aliens, bullets)
         if stats.game_active:
             ship.update()
-            gf.update_bullets(ai_setting, screen, ship, aliens, bullets)
-            gf.update_aliens(ai_setting, stats, screen, ship, aliens, bullets)
+            gf.update_bullets(ai_setting, screen, stats, sb, ship, aliens, bullets)
+            gf.update_aliens(ai_setting, screen, stats, ship, aliens, bullets)
 
-        gf.update_screen(ai_setting, screen, stats, ship, aliens, bullets, play_button)
+        gf.update_screen(ai_setting, screen, stats, sb, ship, aliens, bullets, play_button)
 
 
 if __name__ == '__main__':

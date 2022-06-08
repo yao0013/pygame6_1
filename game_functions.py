@@ -60,29 +60,34 @@ def check_play_button(ai_setting, screen, stats, play_button, ship, aliens, bull
         ship.center_ship()
 
 
-
-def update_screen(ai_setting, screen, stats, ship, aliens, bullets, play_button):
+def update_screen(ai_setting, screen, stats, sb, ship, aliens, bullets, play_button):
     screen.fill(ai_setting.bg_color)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+    sb.show_score()
     if not stats.game_active:
         play_button.draw_button()
 
     pygame.display.flip()
 
 
-def update_bullets(ai_setting, screen, ship, aliens, bullets):
+def update_bullets(ai_setting, screen, stats, sb, ship, aliens, bullets):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-    check_bullet_alien_collisions(ai_setting, screen, ship, aliens, bullets)
+    check_bullet_alien_collisions(ai_setting, screen, stats, sb, ship, aliens, bullets)
 
 
-def check_bullet_alien_collisions(ai_setting, screen, ship, aliens, bullets):
+def check_bullet_alien_collisions(ai_setting, screen, stats, sb, ship, aliens, bullets):
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    if collisions:
+        for aliens in collisions.values():
+            stats.score += ai_setting.alien_points
+            sb.prep_score()
+        check_high_score(stats, sb)
     if len(aliens) == 0:
         bullets.empty()
         ai_setting.increase_speed()
@@ -151,7 +156,7 @@ def ship_hit(ai_setting, stats, screen, ship, aliens, bullets):
         pygame.mouse.set_visible(True)
 
 
-def update_aliens(ai_setting, stats, screen, ship, aliens, bullets):
+def update_aliens(ai_setting, screen, stats, ship, aliens, bullets):
     check_fleet_edges(ai_setting, aliens)
     aliens.update()
     if pygame.sprite.spritecollideany(ship, aliens):
@@ -166,3 +171,8 @@ def check_aliens_bottom(ai_setting, stats, screen, ship, aliens, bullets):
             ship_hit(ai_setting, stats, screen, ship, aliens, bullets)
             break
 
+
+def check_high_score(stats, sb):
+    if stats.scores > stats.high_score:
+        stats.high_score = stats.scores
+        sb.prep_high_score()
