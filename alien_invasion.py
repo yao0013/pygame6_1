@@ -4,7 +4,7 @@ import sys
 import pygame
 from pygame.sprite import Group
 
-from  button import Button
+from button import Button
 from setting import Setting
 from ship import Ship
 import game_functions as gf
@@ -31,7 +31,7 @@ def run_game():
             ship.update()
             gf.update_bullets(ai_setting, screen, ship, aliens, bullets)
             gf.update_aliens(ai_setting, stats, screen, ship, aliens, bullets)
-            gf.update_screen(ai_setting, screen, ship, aliens, bullets, play_button)
+            gf.update_screen(ai_setting, screen, stats, ship, aliens, bullets, play_button)
 
 
 if __name__ == '__main__':
