@@ -14,6 +14,7 @@ class Ship:
         self.rect.bottom = self.screen_rect.bottom
         self.center = float(self.rect.centerx)
         self.centery = float(self.rect.centery)
+        # self.bottom = self.rect.bottom
         self.moving_right = False
         self.moving_left = False
         self.moving_up = False
@@ -37,3 +38,4 @@ class Ship:
 
     def center_ship(self):
         self.center = self.screen_rect.centerx
+        self.centery = self.screen_rect.bottom - self.rect.height / 2

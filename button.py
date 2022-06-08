@@ -1,16 +1,19 @@
-# -*- coding: utf-8 -*-
 # @author ： yao    @Time : 2022/06/08 11:25
 import pygame.font
-class Button:
+
+class Button():
     def __init__(self, ai_setting, screen, msg):
         self.screen = screen
         self.screen_rect = screen.get_rect()
-        self.width, self.height = 200, 50
+
+        self.width, self.heigh = 200, 50
         self.button_color = (0, 255, 0)
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 12)
-        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.font = pygame.font.SysFont(None, 48)
+
+        self.rect = pygame.Rect(0, 0, self.width, self.heigh)
         self.rect.center = self.screen_rect.center
+
         self.prep_msg(msg)
 
     def prep_msg(self, msg):
